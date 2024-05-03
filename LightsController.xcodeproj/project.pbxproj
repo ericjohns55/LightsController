@@ -1,0 +1,622 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */; };
+		30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33E02BE46B530064CDFB /* ContentView.swift */; };
+		30EA33E32BE46B540064CDFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30EA33E22BE46B540064CDFB /* Assets.xcassets */; };
+		30EA33E72BE46B540064CDFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30EA33E62BE46B540064CDFB /* Preview Assets.xcassets */; };
+		30EA33F12BE46B540064CDFB /* LightsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */; };
+		30EA33FB2BE46B540064CDFB /* LightsControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */; };
+		30EA33FD2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		30EA33ED2BE46B540064CDFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30EA33D32BE46B530064CDFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30EA33DA2BE46B530064CDFB;
+			remoteInfo = LightsController;
+		};
+		30EA33F72BE46B540064CDFB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 30EA33D32BE46B530064CDFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 30EA33DA2BE46B530064CDFB;
+			remoteInfo = LightsController;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		30EA33DB2BE46B530064CDFB /* LightsController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsController.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerApp.swift; sourceTree = "<group>"; };
+		30EA33E02BE46B530064CDFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		30EA33E22BE46B540064CDFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		30EA33E42BE46B540064CDFB /* LightsController.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LightsController.entitlements; sourceTree = "<group>"; };
+		30EA33E62BE46B540064CDFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		30EA33EC2BE46B540064CDFB /* LightsControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerTests.swift; sourceTree = "<group>"; };
+		30EA33F62BE46B540064CDFB /* LightsControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITests.swift; sourceTree = "<group>"; };
+		30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		30EA33D82BE46B530064CDFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33E92BE46B540064CDFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33F32BE46B540064CDFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		30EA33D22BE46B530064CDFB = {
+			isa = PBXGroup;
+			children = (
+				30EA33DD2BE46B530064CDFB /* LightsController */,
+				30EA33EF2BE46B540064CDFB /* LightsControllerTests */,
+				30EA33F92BE46B540064CDFB /* LightsControllerUITests */,
+				30EA33DC2BE46B530064CDFB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		30EA33DC2BE46B530064CDFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				30EA33DB2BE46B530064CDFB /* LightsController.app */,
+				30EA33EC2BE46B540064CDFB /* LightsControllerTests.xctest */,
+				30EA33F62BE46B540064CDFB /* LightsControllerUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		30EA33DD2BE46B530064CDFB /* LightsController */ = {
+			isa = PBXGroup;
+			children = (
+				30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */,
+				30EA33E02BE46B530064CDFB /* ContentView.swift */,
+				30EA33E22BE46B540064CDFB /* Assets.xcassets */,
+				30EA33E42BE46B540064CDFB /* LightsController.entitlements */,
+				30EA33E52BE46B540064CDFB /* Preview Content */,
+			);
+			path = LightsController;
+			sourceTree = "<group>";
+		};
+		30EA33E52BE46B540064CDFB /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				30EA33E62BE46B540064CDFB /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		30EA33EF2BE46B540064CDFB /* LightsControllerTests */ = {
+			isa = PBXGroup;
+			children = (
+				30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */,
+			);
+			path = LightsControllerTests;
+			sourceTree = "<group>";
+		};
+		30EA33F92BE46B540064CDFB /* LightsControllerUITests */ = {
+			isa = PBXGroup;
+			children = (
+				30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */,
+				30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */,
+			);
+			path = LightsControllerUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		30EA33DA2BE46B530064CDFB /* LightsController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30EA34002BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsController" */;
+			buildPhases = (
+				30EA33D72BE46B530064CDFB /* Sources */,
+				30EA33D82BE46B530064CDFB /* Frameworks */,
+				30EA33D92BE46B530064CDFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LightsController;
+			productName = LightsController;
+			productReference = 30EA33DB2BE46B530064CDFB /* LightsController.app */;
+			productType = "com.apple.product-type.application";
+		};
+		30EA33EB2BE46B540064CDFB /* LightsControllerTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30EA34032BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsControllerTests" */;
+			buildPhases = (
+				30EA33E82BE46B540064CDFB /* Sources */,
+				30EA33E92BE46B540064CDFB /* Frameworks */,
+				30EA33EA2BE46B540064CDFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30EA33EE2BE46B540064CDFB /* PBXTargetDependency */,
+			);
+			name = LightsControllerTests;
+			productName = LightsControllerTests;
+			productReference = 30EA33EC2BE46B540064CDFB /* LightsControllerTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		30EA33F52BE46B540064CDFB /* LightsControllerUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 30EA34062BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsControllerUITests" */;
+			buildPhases = (
+				30EA33F22BE46B540064CDFB /* Sources */,
+				30EA33F32BE46B540064CDFB /* Frameworks */,
+				30EA33F42BE46B540064CDFB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				30EA33F82BE46B540064CDFB /* PBXTargetDependency */,
+			);
+			name = LightsControllerUITests;
+			productName = LightsControllerUITests;
+			productReference = 30EA33F62BE46B540064CDFB /* LightsControllerUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		30EA33D32BE46B530064CDFB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1530;
+				LastUpgradeCheck = 1530;
+				TargetAttributes = {
+					30EA33DA2BE46B530064CDFB = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					30EA33EB2BE46B540064CDFB = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 30EA33DA2BE46B530064CDFB;
+					};
+					30EA33F52BE46B540064CDFB = {
+						CreatedOnToolsVersion = 15.3;
+						TestTargetID = 30EA33DA2BE46B530064CDFB;
+					};
+				};
+			};
+			buildConfigurationList = 30EA33D62BE46B530064CDFB /* Build configuration list for PBXProject "LightsController" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 30EA33D22BE46B530064CDFB;
+			productRefGroup = 30EA33DC2BE46B530064CDFB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				30EA33DA2BE46B530064CDFB /* LightsController */,
+				30EA33EB2BE46B540064CDFB /* LightsControllerTests */,
+				30EA33F52BE46B540064CDFB /* LightsControllerUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		30EA33D92BE46B530064CDFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30EA33E72BE46B540064CDFB /* Preview Assets.xcassets in Resources */,
+				30EA33E32BE46B540064CDFB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33EA2BE46B540064CDFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33F42BE46B540064CDFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		30EA33D72BE46B530064CDFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */,
+				30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33E82BE46B540064CDFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30EA33F12BE46B540064CDFB /* LightsControllerTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		30EA33F22BE46B540064CDFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				30EA33FB2BE46B540064CDFB /* LightsControllerUITests.swift in Sources */,
+				30EA33FD2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		30EA33EE2BE46B540064CDFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30EA33DA2BE46B530064CDFB /* LightsController */;
+			targetProxy = 30EA33ED2BE46B540064CDFB /* PBXContainerItemProxy */;
+		};
+		30EA33F82BE46B540064CDFB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 30EA33DA2BE46B530064CDFB /* LightsController */;
+			targetProxy = 30EA33F72BE46B540064CDFB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		30EA33FE2BE46B540064CDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		30EA33FF2BE46B540064CDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		30EA34012BE46B540064CDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LightsController/LightsController.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LightsController/Preview Content\"";
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		30EA34022BE46B540064CDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = LightsController/LightsController.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"LightsController/Preview Content\"";
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphoneos*]" = YES;
+				"INFOPLIST_KEY_UILaunchScreen_Generation[sdk=iphonesimulator*]" = YES;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphoneos*]" = UIStatusBarStyleDefault;
+				"INFOPLIST_KEY_UIStatusBarStyle[sdk=iphonesimulator*]" = UIStatusBarStyleDefault;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
+				"LD_RUNPATH_SEARCH_PATHS[sdk=macosx*]" = "@executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsController;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		30EA34042BE46B540064CDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsControllerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LightsController.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LightsController";
+			};
+			name = Debug;
+		};
+		30EA34052BE46B540064CDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsControllerTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LightsController.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/LightsController";
+			};
+			name = Release;
+		};
+		30EA34072BE46B540064CDFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LightsController;
+			};
+			name = Debug;
+		};
+		30EA34082BE46B540064CDFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5D55PR25KA;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.4;
+				MACOSX_DEPLOYMENT_TARGET = 14.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = me.eric275j.LightsControllerUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = auto;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator macosx";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = LightsController;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		30EA33D62BE46B530064CDFB /* Build configuration list for PBXProject "LightsController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30EA33FE2BE46B540064CDFB /* Debug */,
+				30EA33FF2BE46B540064CDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30EA34002BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30EA34012BE46B540064CDFB /* Debug */,
+				30EA34022BE46B540064CDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30EA34032BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsControllerTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30EA34042BE46B540064CDFB /* Debug */,
+				30EA34052BE46B540064CDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		30EA34062BE46B540064CDFB /* Build configuration list for PBXNativeTarget "LightsControllerUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30EA34072BE46B540064CDFB /* Debug */,
+				30EA34082BE46B540064CDFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 30EA33D32BE46B530064CDFB /* Project object */;
+}
