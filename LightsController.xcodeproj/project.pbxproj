@@ -14,6 +14,8 @@
 		30EA33F12BE46B540064CDFB /* LightsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */; };
 		30EA33FB2BE46B540064CDFB /* LightsControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */; };
 		30EA33FD2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */; };
+		30EA340A2BE46C090064CDFB /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA34092BE46C090064CDFB /* DataItem.swift */; };
+		30EA340C2BE46C2E0064CDFB /* DataItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3034202A2BEBDFB300FDC55A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3073BCF92BEDDEA100BBCFD7 /* Notepad.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Notepad.md; sourceTree = "<group>"; };
 		30EA33DB2BE46B530064CDFB /* LightsController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerApp.swift; sourceTree = "<group>"; };
 		30EA33E02BE46B530064CDFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -45,6 +49,8 @@
 		30EA33F62BE46B540064CDFB /* LightsControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITests.swift; sourceTree = "<group>"; };
 		30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		30EA34092BE46C090064CDFB /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
+		30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItemRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,11 +101,15 @@
 		30EA33DD2BE46B530064CDFB /* LightsController */ = {
 			isa = PBXGroup;
 			children = (
+				3034202A2BEBDFB300FDC55A /* Info.plist */,
 				30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */,
 				30EA33E02BE46B530064CDFB /* ContentView.swift */,
 				30EA33E22BE46B540064CDFB /* Assets.xcassets */,
 				30EA33E42BE46B540064CDFB /* LightsController.entitlements */,
 				30EA33E52BE46B540064CDFB /* Preview Content */,
+				30EA34092BE46C090064CDFB /* DataItem.swift */,
+				30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */,
+				3073BCF92BEDDEA100BBCFD7 /* Notepad.md */,
 			);
 			path = LightsController;
 			sourceTree = "<group>";
@@ -217,6 +227,9 @@
 				Base,
 			);
 			mainGroup = 30EA33D22BE46B530064CDFB;
+			packageReferences = (
+				3034202B2BEBE3AE00FDC55A /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+			);
 			productRefGroup = 30EA33DC2BE46B530064CDFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -260,6 +273,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */,
+				30EA340C2BE46C2E0064CDFB /* DataItemRow.swift in Sources */,
+				30EA340A2BE46C090064CDFB /* DataItem.swift in Sources */,
 				30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -417,6 +432,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LightsController/LightsController.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LightsController/Preview Content\"";
@@ -424,6 +440,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LightsController/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -455,6 +472,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = LightsController/LightsController.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"LightsController/Preview Content\"";
@@ -462,6 +480,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = LightsController/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -617,6 +636,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3034202B2BEBE3AE00FDC55A /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 30EA33D32BE46B530064CDFB /* Project object */;
 }
