@@ -15,7 +15,6 @@
 		30EA33F12BE46B540064CDFB /* LightsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */; };
 		30EA33FB2BE46B540064CDFB /* LightsControllerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */; };
 		30EA33FD2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */; };
-		30EA340A2BE46C090064CDFB /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA34092BE46C090064CDFB /* DataItem.swift */; };
 		30EA340C2BE46C2E0064CDFB /* DataItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,7 +50,6 @@
 		30EA33F62BE46B540064CDFB /* LightsControllerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightsControllerUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		30EA33FA2BE46B540064CDFB /* LightsControllerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITests.swift; sourceTree = "<group>"; };
 		30EA33FC2BE46B540064CDFB /* LightsControllerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		30EA34092BE46C090064CDFB /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
 		30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItemRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -104,15 +102,14 @@
 			isa = PBXGroup;
 			children = (
 				3034202A2BEBDFB300FDC55A /* Info.plist */,
-				30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */,
+				30B08FF42BEEA5B4001F2F98 /* ApplicationData.swift */,
 				30EA33E02BE46B530064CDFB /* ContentView.swift */,
+				30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */,
+				30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */,
+				3073BCF92BEDDEA100BBCFD7 /* Notepad.md */,
 				30EA33E22BE46B540064CDFB /* Assets.xcassets */,
 				30EA33E42BE46B540064CDFB /* LightsController.entitlements */,
 				30EA33E52BE46B540064CDFB /* Preview Content */,
-				30EA34092BE46C090064CDFB /* DataItem.swift */,
-				30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */,
-				3073BCF92BEDDEA100BBCFD7 /* Notepad.md */,
-				30B08FF42BEEA5B4001F2F98 /* ApplicationData.swift */,
 			);
 			path = LightsController;
 			sourceTree = "<group>";
@@ -278,7 +275,6 @@
 				30B08FF52BEEA5B4001F2F98 /* ApplicationData.swift in Sources */,
 				30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */,
 				30EA340C2BE46C2E0064CDFB /* DataItemRow.swift in Sources */,
-				30EA340A2BE46C090064CDFB /* DataItem.swift in Sources */,
 				30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
