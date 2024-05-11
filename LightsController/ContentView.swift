@@ -25,7 +25,7 @@ struct ContentView: View {
                         .fontWeight(.bold)
                         .font(.system(size: 32.0))
                     
-                    List(LightsControllerApp.getDataItems(dataType: .color), id: \.id) { dataRow in
+                    List(DataItemRow.getDataItems(dataType: .color), id: \.id) { dataRow in
                         Button(action: {
                             print("Tapped color: " + dataRow.textField)
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
@@ -42,11 +42,32 @@ struct ContentView: View {
                 }
                 
                 VStack {
+                    Text("Effect Selection")
+                        .fontWeight(.bold)
+                        .font(.system(size: 32.0))
+                    
+                    List(DataItemRow.getDataItems(dataType: .effect), id: \.id) { dataRow in
+                        Button(action: {
+                            print("Tapped effect: " + dataRow.textField)
+                            LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
+                        }) {
+                            DataItemRow(dataItem: dataRow)
+                                .contentShape(Rectangle())
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                        .cornerRadius(10.0)
+                    }
+                }
+                .tabItem {
+                    Label("Palettes", systemImage: "circle")
+                }
+                
+                VStack {
                     Text("Palette Selection")
                         .fontWeight(.bold)
                         .font(.system(size: 32.0))
                     
-                    List(LightsControllerApp.getDataItems(dataType: .palette), id: \.id) { dataRow in
+                    List(DataItemRow.getDataItems(dataType: .palette), id: \.id) { dataRow in
                         Button(action: {
                             print("Tapped palette: " + dataRow.textField)
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
