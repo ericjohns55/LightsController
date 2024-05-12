@@ -12,6 +12,8 @@ enum Palette {
 }
 
 class ApplicationData {
+    static let toggle_lights: String = "TOGGLE_LIGHTS"
+    
     static func getPaletteColors(palette: Palette) -> [Int] {
         switch (palette) {
             case .cloud:
@@ -54,8 +56,6 @@ class ApplicationData {
                 return [215, 0, 113, 156, 78, 151, 0, 53, 170]
             case .warm:
                 return [255, 0, 0, 255, 0, 255, 255, 200, 0]
-            default:
-                return [0, 0, 0]
         }
     }
 }

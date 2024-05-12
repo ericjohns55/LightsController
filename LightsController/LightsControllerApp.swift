@@ -18,7 +18,14 @@ struct LightsControllerApp: App {
     }
     
     static func requestController(urlArgs: String) {
-        let fullURLString: String = "\(serverIP)/?strip_num=0&data=(\(urlArgs))"
+        var fullURLString: String
+        
+        if (urlArgs == ApplicationData.toggle_lights) {
+            fullURLString = "\(serverIP)/?lights=0"
+        } else {
+            fullURLString = "\(serverIP)/?strip_num=0&data=(\(urlArgs))"
+        }        
+        
         let url = URL(string: fullURLString)!
         
         print("Requesting url: \"\(fullURLString)\"")

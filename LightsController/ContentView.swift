@@ -9,12 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var selectedTab = "Colors"
+    @State private var increment: Int = 0
     
     var body: some View {
         VStack {
-            Text("LEDs Controller")
+            Text("LED Lights")
                 .fontWeight(.bold)
+                .underline()
                 .font(.system(size: 48.0))
+                .padding(.bottom, 20)
+                .gesture(LongPressGesture().onEnded({ _ in
+                    print("Toggling bedroom lights")
+                    LightsControllerApp.requestController(urlArgs: ApplicationData.toggle_lights)
+                }))
         }
         .padding()
         
@@ -35,10 +42,20 @@ struct ContentView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .cornerRadius(10.0)
+                        .listRowSeparator(.hidden)
+                        .gesture(LongPressGesture().onEnded({ _ in
+                            print("YOUR MOM")
+                        }))
+                        
+                        if !dataRow.last {
+                            Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        }
+                        
                     }
+                    
                 }
                 .tabItem {
-                    Label("Colors", systemImage: "star")
+                    Label("Colors", systemImage: "rainbow")
                 }
                 
                 VStack {
@@ -56,10 +73,15 @@ struct ContentView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .cornerRadius(10.0)
+                        .listRowSeparator(.hidden)
+                        
+                        if !dataRow.last {
+                            Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        }
                     }
                 }
                 .tabItem {
-                    Label("Palettes", systemImage: "circle")
+                    Label("Effects", systemImage: "wand.and.rays")
                 }
                 
                 VStack {
@@ -77,10 +99,22 @@ struct ContentView: View {
                         }
                         .buttonStyle(PlainButtonStyle())
                         .cornerRadius(10.0)
+                        .listRowSeparator(.hidden)
+                        
+                        if !dataRow.last {
+                            Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        }
                     }
                 }
                 .tabItem {
-                    Label("Palettes", systemImage: "circle")
+                    Label("Palettes", systemImage: "paintpalette")
+                }
+                
+                VStack {
+                    
+                }
+                .tabItem {
+                    Label("Adjustments", systemImage: "dial.high")
                 }
             }
         }
