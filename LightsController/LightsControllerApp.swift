@@ -7,9 +7,20 @@
 
 import SwiftUI
 
+enum AvailableStrip {
+    case all, main, tapestry
+}
+
+enum StripConfig {
+    case left, right, full
+}
+
 @main
 struct LightsControllerApp: App {
     static let serverIP: String = "http://172.31.1.138:8081"
+    
+    static var selectedConfig: AvailableStrip = .all
+    static var stripConfig: StripConfig = .full
     
     var body: some Scene {
         WindowGroup {
@@ -23,8 +34,26 @@ struct LightsControllerApp: App {
         if (urlArgs == ApplicationData.toggle_lights) {
             fullURLString = "\(serverIP)/?lights=0"
         } else {
-            fullURLString = "\(serverIP)/?strip_num=0&data=(\(urlArgs))"
-        }        
+            var physicalConfig: Int = 0
+            
+            if (selectedConfig == .main) {
+                physicalConfig = 1
+            } else if (selectedConfig == .tapestry) {
+                physicalConfig = 2
+            }
+            
+            var stripSide: String = ""
+            
+            if (stripConfig == .left) {
+                stripSide = "*S=0*S2=300"
+            } else if (stripConfig == .right) {
+                stripSide = "*S=300*S2=600"
+            } else {
+                stripSide = "*S=0*S2=600"
+            }
+            
+            fullURLString = "\(serverIP)/?strip_num=\(physicalConfig)&data=(\(urlArgs)\(stripSide)"
+        }
         
         let url = URL(string: fullURLString)!
         
@@ -39,5 +68,20 @@ struct LightsControllerApp: App {
         }
         
         request.resume()
+    }
+    
+    static func extractModifiers(urlArgs: String) -> [Float] {
+        var speed: Float = 128
+        var intensity: Float = 128
+        
+        for item in urlArgs.split(separator: "*") {
+            if (item.starts(with: "SX=")) {
+                speed = Float(item.replacingOccurrences(of: "SX=", with: "")) ?? 128
+            } else if (item.starts(with: "IX=")) {
+                intensity = Float(item.replacingOccurrences(of: "IX=", with: "")) ?? 128
+            }
+        }
+        
+        return [speed, intensity]
     }
 }
