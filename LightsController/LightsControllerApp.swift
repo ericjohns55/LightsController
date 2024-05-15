@@ -15,12 +15,17 @@ enum StripConfig {
     case left, right, full
 }
 
+enum ServerConfig {
+    case primary, secondary
+}
+
 @main
 struct LightsControllerApp: App {
     static let serverIP: String = "http://172.31.1.138:8081"
     
     static var selectedConfig: AvailableStrip = .all
     static var stripConfig: StripConfig = .full
+    static var serverConfig: ServerConfig = .primary
     
     var body: some Scene {
         WindowGroup {

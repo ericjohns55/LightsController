@@ -7,15 +7,30 @@
 
 import SwiftUI
 
+enum Page {
+    case colors, effects, palettes, adjustments
+}
+
 struct ContentView: View {
-    @State private var selectedTab = "Colors"
+    @State private var selectedTab: Page = .adjustments
+    @State private var inSetup: Bool = true
     
     @State public var brightness: Float = 128
     @State public var effectSpeed: Float = 128
     @State public var effectIntensity: Float = 128
     
-    @State public var selectedConfig: AvailableStrip = .all
+    @State private var selectedConfig: AvailableStrip = .all
     @State private var stripConfig: StripConfig = .full
+    
+    @State private var serverConfig: ServerConfig = .primary
+    @State private var primaryIP: String = ""
+    @State private var primaryIsServer: Bool = true
+    @State private var secondaryIP: String = ""
+    @State private var secondaryIsServer: Bool = false
+    
+    init() {
+        print("Initialized")
+    }
         
     var body: some View {
         VStack {
@@ -62,7 +77,7 @@ struct ContentView: View {
                 }
                 .tabItem {
                     Label("Colors", systemImage: "rainbow")
-                }
+                }.tag(Page.colors)
                 
                 VStack {
                     Text("Effect Selection")
@@ -92,7 +107,7 @@ struct ContentView: View {
                 }
                 .tabItem {
                     Label("Effects", systemImage: "wand.and.rays")
-                }
+                }.tag(Page.effects)
                 
                 VStack {
                     Text("Palette Selection")
@@ -118,85 +133,161 @@ struct ContentView: View {
                 }
                 .tabItem {
                     Label("Palettes", systemImage: "paintpalette")
-                }
+                }.tag(Page.palettes)
                 
                 VStack {
-                    Text("Strip Modifiers")
-                        .fontWeight(.bold)
-                        .font(.system(size: 32.0))
-                    
-                    Slider(value: $brightness, in: 0...255, step: 1) {
-                        Text("Brightness")
-                    } minimumValueLabel: {
-                        Text("0")
-                    } maximumValueLabel: {
-                        Text("255")
-                    } onEditingChanged: { editing in
-                        if (!editing) {
-                            LightsControllerApp.requestController(urlArgs: "*A=\(Int(brightness))")
-                        }
-                    }.padding(10)
-                    Text("Brightness: \(Int(brightness))")
-                    
-                    Slider(value: $effectSpeed, in: 0...255, step: 1) {
-                        Text("Effect Speed")
-                    } minimumValueLabel: {
-                        Text("0")
-                    } maximumValueLabel: {
-                        Text("255")
-                    } onEditingChanged: { editing in
-                        if (!editing) {
-                            LightsControllerApp.requestController(urlArgs: "*SX=\(Int(effectSpeed))")
-                        }
-                    }.padding(10)
-                    Text("Effect Speed: \(Int(effectSpeed))")
-                    
-                    Slider(value: $effectIntensity, in: 0...255, step: 1) {
-                        Text("Effect Intensity")
-                    } minimumValueLabel: {
-                        Text("0")
-                    } maximumValueLabel: {
-                        Text("255")
-                    } onEditingChanged: { editing in
-                        if (!editing) {
-                            LightsControllerApp.requestController(urlArgs: "*IX=\(Int(effectIntensity))")
-                        }
-                    }.padding(10)
-                    Text("Effect Intensity: \(Int(effectIntensity))")
-                    
-                    Spacer()
-                    
-                    
-                    Text("Strip Config")
-                        .fontWeight(.bold)
-                        .font(.system(size: 32.0))
-                    
-                    Picker("Lights Config", selection: $selectedConfig) {
-                        Text("All Lights").tag(AvailableStrip.all)
-                        Text("Main Lights").tag(AvailableStrip.main)
-                        Text("Tapestry Lights").tag(AvailableStrip.tapestry)
-                    }.pickerStyle(.segmented)
-                        .padding(10)
-                        .onChange(of: selectedConfig, {
-                            LightsControllerApp.selectedConfig = selectedConfig
-                        })
-                    
-                    Picker("Physical Config", selection: $stripConfig) {
-                        Text("Left Strip").tag(StripConfig.left)
-                        Text("Full Strip").tag(StripConfig.full)
-                        Text("Right Strip").tag(StripConfig.right)
-                    }.pickerStyle(.segmented)
-                        .padding(10)
-                        .onChange(of: stripConfig, {
-                            LightsControllerApp.stripConfig = stripConfig
-                        })
-                    
-                    Spacer()
+                    if (!inSetup) {
+                        Text("Strip Modifiers")
+                            .fontWeight(.bold)
+                            .font(.system(size: 32.0))
+                        
+                        Slider(value: $brightness, in: 0...255, step: 1) {
+                            Text("Brightness")
+                        } minimumValueLabel: {
+                            Text("0")
+                        } maximumValueLabel: {
+                            Text("255")
+                        } onEditingChanged: { editing in
+                            if (!editing) {
+                                LightsControllerApp.requestController(urlArgs: "*A=\(Int(brightness))")
+                            }
+                        }.padding(10)
+                        Text("Brightness: \(Int(brightness))")
+                        
+                        Slider(value: $effectSpeed, in: 0...255, step: 1) {
+                            Text("Effect Speed")
+                        } minimumValueLabel: {
+                            Text("0")
+                        } maximumValueLabel: {
+                            Text("255")
+                        } onEditingChanged: { editing in
+                            if (!editing) {
+                                LightsControllerApp.requestController(urlArgs: "*SX=\(Int(effectSpeed))")
+                            }
+                        }.padding(10)
+                        Text("Effect Speed: \(Int(effectSpeed))")
+                        
+                        Slider(value: $effectIntensity, in: 0...255, step: 1) {
+                            Text("Effect Intensity")
+                        } minimumValueLabel: {
+                            Text("0")
+                        } maximumValueLabel: {
+                            Text("255")
+                        } onEditingChanged: { editing in
+                            if (!editing) {
+                                LightsControllerApp.requestController(urlArgs: "*IX=\(Int(effectIntensity))")
+                            }
+                        }.padding(10)
+                        Text("Effect Intensity: \(Int(effectIntensity))")
+                        
+                        Spacer()
+                        
+                        
+                        Text("Strip Config")
+                            .fontWeight(.bold)
+                            .font(.system(size: 32.0))
+                        
+                        Picker("Lights Config", selection: $selectedConfig) {
+                            Text("All Lights").tag(AvailableStrip.all)
+                            Text("Main Lights").tag(AvailableStrip.main)
+                            Text("Tapestry Lights").tag(AvailableStrip.tapestry)
+                        }.pickerStyle(.segmented)
+                            .padding(10)
+                            .onChange(of: selectedConfig, {
+                                LightsControllerApp.selectedConfig = selectedConfig
+                            })
+                        
+                        Picker("Physical Config", selection: $stripConfig) {
+                            Text("Left Strip").tag(StripConfig.left)
+                            Text("Full Strip").tag(StripConfig.full)
+                            Text("Right Strip").tag(StripConfig.right)
+                        }.pickerStyle(.segmented)
+                            .padding(10)
+                            .onChange(of: stripConfig, {
+                                LightsControllerApp.stripConfig = stripConfig
+                            })
+                        
+                        Spacer()
+                        
+                        Button(action: {
+                            inSetup = true
+                        }) {
+                            Text("Server Settings")
+                        }.padding(20)
+                    } else {
+                        Text("Server Config")
+                            .fontWeight(.bold)
+                            .font(.system(size: 32.0))
+                            .padding(.bottom, 20)
+                        
+                        Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        
+                        Text("Active Config")
+                            .fontWeight(.bold)
+                            .font(.system(size: 24.0))
+                        
+                        Picker("Server Config", selection: $serverConfig) {
+                            Text("Primary").tag(ServerConfig.primary)
+                            Text("Secondary").tag(ServerConfig.secondary)
+                        }.pickerStyle(.segmented)
+                            .padding(10)
+                            .onChange(of: serverConfig, {
+                                LightsControllerApp.serverConfig = serverConfig
+                            })
+                        
+                        Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        
+                        Text("Primary Server")
+                            .fontWeight(.bold)
+                            .font(.system(size: 18.0))
+                                    
+                        LabeledContent {
+                            TextField("XXX.XX.X.XXX:XXXX", text: $primaryIP)
+                                .onSubmit {
+                                    print("Primary submitted")
+                                }
+                        } label: {
+                            Text("Primary server IP: ")
+                        }.padding(10)
+                            
+                        Toggle(isOn: $primaryIsServer, label: {
+                            Text("Uses Raspberry PI Server")
+                        }).padding(10)
+                                            
+                        Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        
+                        Text("Secondary Server")
+                            .fontWeight(.bold)
+                            .font(.system(size: 18.0))
+                        
+                        LabeledContent {
+                            TextField("XXX.XX.X.XXX:XXXX", text: $secondaryIP)
+                                .onSubmit {
+                                    print("Primary submitted")
+                                }
+                        } label: {
+                            Text("Secondary server IP: ")
+                        }.padding(10)
+                            
+                        Toggle(isOn: $secondaryIsServer, label: {
+                            Text("Uses Raspberry PI Server")
+                        }).padding(10)
+                                            
+                        Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
+                        
+                        Spacer()
+                                                
+                        Button(action: {
+                            inSetup = false
+                        }) {
+                            Text("Return to Adjustments Page")
+                        }.padding(20)
+                    }
                     
                 }
                 .tabItem {
                     Label("Adjustments", systemImage: "dial.high")
-                }
+                }.tag(Page.adjustments)
             }
         }
     }
