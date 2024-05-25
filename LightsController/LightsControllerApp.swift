@@ -7,25 +7,44 @@
 
 import SwiftUI
 
-enum AvailableStrip {
-    case all, main, tapestry
+enum AvailableStrip: Int {
+    case all = 0
+    case main = 1
+    case tapestry = 2
+    
+    static func convert(identifier: Int) -> AvailableStrip {
+        if (identifier == 0) { return .all }
+        else if (identifier == 1) { return .main }
+        else { return .tapestry }
+    }
 }
 
-enum StripConfig {
-    case left, right, full
+enum StripConfig: Int {
+    case left = 0
+    case right = 1
+    case full = 2
+    
+    static func convert(identifier: Int) -> StripConfig {
+        if (identifier == 0) { return .left }
+        else if (identifier == 1) { return .right }
+        else { return .full }
+    }
 }
 
-enum ServerConfig {
-    case primary, secondary
+enum ServerConfig: Int {
+    case primary = 0
+    case secondary = 1
+    
+    static func convert(identifier: Int) -> ServerConfig {
+        return (identifier == 0) ? .primary : .secondary
+    }
 }
 
 @main
 struct LightsControllerApp: App {
-    static let serverIP: String = "http://172.31.1.138:8081"
-    
-    static var selectedConfig: AvailableStrip = .all
-    static var stripConfig: StripConfig = .full
-    static var serverConfig: ServerConfig = .primary
+    init() {
+        ApplicationData.setup()
+    }
     
     var body: some Scene {
         WindowGroup {
@@ -36,29 +55,37 @@ struct LightsControllerApp: App {
     static func requestController(urlArgs: String) {
         var fullURLString: String
         
-        if (urlArgs == ApplicationData.toggle_lights) {
-            fullURLString = "\(serverIP)/?lights=0"
-        } else {
-            var physicalConfig: Int = 0
+        let serverIP = (ApplicationData.serverConfig == .primary) ? ApplicationData.primaryIP : ApplicationData.secondaryIP
+        
+        if ((ApplicationData.serverConfig == .primary && ApplicationData.primaryServer) || (ApplicationData.serverConfig == .secondary && ApplicationData.secondaryServer)) {
             
-            if (selectedConfig == .main) {
-                physicalConfig = 1
-            } else if (selectedConfig == .tapestry) {
-                physicalConfig = 2
-            }
-            
-            var stripSide: String = ""
-            
-            if (stripConfig == .left) {
-                stripSide = "*S=0*S2=300"
-            } else if (stripConfig == .right) {
-                stripSide = "*S=300*S2=600"
+            if (urlArgs == ApplicationData.toggle_lights) {
+                fullURLString = "\(serverIP)/?lights=0"
             } else {
-                stripSide = "*S=0*S2=600"
+                var physicalConfig: Int = 0
+                
+                if (ApplicationData.selectedConfig == .main) {
+                    physicalConfig = 1
+                } else if (ApplicationData.selectedConfig == .tapestry) {
+                    physicalConfig = 2
+                }
+                
+                var stripSide: String = ""
+                
+                if (ApplicationData.stripConfig == .left) {
+                    stripSide = "*S=0*S2=300"
+                } else if (ApplicationData.stripConfig == .right) {
+                    stripSide = "*S=300*S2=600"
+                } else {
+                    stripSide = "*S=0*S2=600"
+                }
+                
+                fullURLString = "\(serverIP)/?strip_num=\(physicalConfig)&data=(\(urlArgs)\(stripSide))"
             }
-            
-            fullURLString = "\(serverIP)/?strip_num=\(physicalConfig)&data=(\(urlArgs)\(stripSide)"
+        } else {
+            fullURLString = "\(serverIP)/win\(urlArgs.replacingOccurrences(of: "*", with: "&"))"
         }
+    
         
         let url = URL(string: fullURLString)!
         

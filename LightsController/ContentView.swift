@@ -8,28 +8,38 @@
 import SwiftUI
 
 enum Page {
-    case colors, effects, palettes, adjustments
+    case colors, effects, palettes, adjustments, presets
 }
 
 struct ContentView: View {
-    @State private var selectedTab: Page = .adjustments
-    @State private var inSetup: Bool = true
+    @State private var selectedTab: Page = .colors
+    @State private var inSetup: Bool = false
+    
+    @State private var lastPalette: String = "(None)"
+    @State private var lastEffect: String = "(None)"
     
     @State public var brightness: Float = 128
     @State public var effectSpeed: Float = 128
     @State public var effectIntensity: Float = 128
     
-    @State private var selectedConfig: AvailableStrip = .all
-    @State private var stripConfig: StripConfig = .full
+    @State private var selectedConfig: AvailableStrip
+    @State private var stripConfig: StripConfig
     
-    @State private var serverConfig: ServerConfig = .primary
-    @State private var primaryIP: String = ""
-    @State private var primaryIsServer: Bool = true
-    @State private var secondaryIP: String = ""
-    @State private var secondaryIsServer: Bool = false
+    @State private var serverConfig: ServerConfig
+    @State private var primaryIP: String
+    @State private var primaryIsServer: Bool
+    @State private var secondaryIP: String
+    @State private var secondaryIsServer: Bool
     
     init() {
-        print("Initialized")
+        primaryIP = ApplicationData.primaryIP
+        primaryIsServer = ApplicationData.primaryServer
+        secondaryIP = ApplicationData.secondaryIP
+        secondaryIsServer = ApplicationData.secondaryServer
+        
+        selectedConfig = ApplicationData.selectedConfig
+        stripConfig = ApplicationData.stripConfig
+        serverConfig = ApplicationData.serverConfig
     }
         
     var body: some View {
@@ -40,8 +50,10 @@ struct ContentView: View {
                 .font(.system(size: 48.0))
                 .padding(.bottom, 20)
                 .gesture(LongPressGesture().onEnded({ _ in
-                    print("Toggling bedroom lights")
-                    LightsControllerApp.requestController(urlArgs: ApplicationData.toggle_lights)
+                    if ((serverConfig == .primary && primaryIsServer) || (serverConfig == .secondary && secondaryIsServer)) {
+                        print("Toggling bedroom lights")
+                        LightsControllerApp.requestController(urlArgs: ApplicationData.toggle_lights)
+                    }
                 }))
         }
         .padding()
@@ -55,7 +67,11 @@ struct ContentView: View {
                     
                     List(DataItemRow.getDataItems(dataType: .color), id: \.id) { dataRow in
                         Button(action: {
-                            print("Tapped color: " + dataRow.textField)
+                            if (dataRow.textField != "Toggle Lights") {
+                                lastEffect = "Solid Color"
+                                lastPalette = "\(dataRow.textField) (Solid Color)"
+                            }
+                            
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
                         }) {
                             DataItemRow(dataItem: dataRow)
@@ -84,9 +100,13 @@ struct ContentView: View {
                         .fontWeight(.bold)
                         .font(.system(size: 32.0))
                     
+                    Text("Current Effect: " + lastEffect)
+                        .italic()
+                        .font(.system(size: 16.0))
+                    
                     List(DataItemRow.getDataItems(dataType: .effect), id: \.id) { dataRow in
                         Button(action: {
-                            print("Tapped effect: " + dataRow.textField)
+                            lastEffect = dataRow.textField
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
                             
                             let response = LightsControllerApp.extractModifiers(urlArgs: dataRow.urlArgs)
@@ -114,9 +134,13 @@ struct ContentView: View {
                         .fontWeight(.bold)
                         .font(.system(size: 32.0))
                     
+                    Text("Current Palette: " + lastPalette)
+                        .italic()
+                        .font(.system(size: 16.0))
+                    
                     List(DataItemRow.getDataItems(dataType: .palette), id: \.id) { dataRow in
                         Button(action: {
-                            print("Tapped palette: " + dataRow.textField)
+                            lastPalette = dataRow.textField
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
                         }) {
                             DataItemRow(dataItem: dataRow)
@@ -182,32 +206,35 @@ struct ContentView: View {
                         
                         Spacer()
                         
-                        
-                        Text("Strip Config")
-                            .fontWeight(.bold)
-                            .font(.system(size: 32.0))
-                        
-                        Picker("Lights Config", selection: $selectedConfig) {
-                            Text("All Lights").tag(AvailableStrip.all)
-                            Text("Main Lights").tag(AvailableStrip.main)
-                            Text("Tapestry Lights").tag(AvailableStrip.tapestry)
-                        }.pickerStyle(.segmented)
-                            .padding(10)
-                            .onChange(of: selectedConfig, {
-                                LightsControllerApp.selectedConfig = selectedConfig
-                            })
-                        
-                        Picker("Physical Config", selection: $stripConfig) {
-                            Text("Left Strip").tag(StripConfig.left)
-                            Text("Full Strip").tag(StripConfig.full)
-                            Text("Right Strip").tag(StripConfig.right)
-                        }.pickerStyle(.segmented)
-                            .padding(10)
-                            .onChange(of: stripConfig, {
-                                LightsControllerApp.stripConfig = stripConfig
-                            })
-                        
-                        Spacer()
+                        if ((serverConfig == .primary && primaryIsServer) || (serverConfig == .secondary && secondaryIsServer)) {
+                            Text("Strip Config")
+                                .fontWeight(.bold)
+                                .font(.system(size: 32.0))
+                            
+                            Picker("Lights Config", selection: $selectedConfig) {
+                                Text("All Lights").tag(AvailableStrip.all)
+                                Text("Main Lights").tag(AvailableStrip.main)
+                                Text("Tapestry Lights").tag(AvailableStrip.tapestry)
+                            }.pickerStyle(.segmented)
+                                .padding(10)
+                                .onChange(of: selectedConfig, {
+                                    ApplicationData.selectedConfig = selectedConfig
+                                    ApplicationData.updateSavedData()
+                                })
+                            
+                            Picker("Physical Config", selection: $stripConfig) {
+                                Text("Left Strip").tag(StripConfig.left)
+                                Text("Full Strip").tag(StripConfig.full)
+                                Text("Right Strip").tag(StripConfig.right)
+                            }.pickerStyle(.segmented)
+                                .padding(10)
+                                .onChange(of: stripConfig, {
+                                    ApplicationData.stripConfig = stripConfig
+                                    ApplicationData.updateSavedData()
+                                })
+                            
+                            Spacer()
+                        }
                         
                         Button(action: {
                             inSetup = true
@@ -232,7 +259,8 @@ struct ContentView: View {
                         }.pickerStyle(.segmented)
                             .padding(10)
                             .onChange(of: serverConfig, {
-                                LightsControllerApp.serverConfig = serverConfig
+                                ApplicationData.serverConfig = serverConfig
+                                ApplicationData.updateSavedData()
                             })
                         
                         Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
@@ -244,7 +272,8 @@ struct ContentView: View {
                         LabeledContent {
                             TextField("XXX.XX.X.XXX:XXXX", text: $primaryIP)
                                 .onSubmit {
-                                    print("Primary submitted")
+                                    ApplicationData.primaryIP = primaryIP
+                                    ApplicationData.updateSavedData()
                                 }
                         } label: {
                             Text("Primary server IP: ")
@@ -253,6 +282,10 @@ struct ContentView: View {
                         Toggle(isOn: $primaryIsServer, label: {
                             Text("Uses Raspberry PI Server")
                         }).padding(10)
+                            .onChange(of: primaryIsServer, {
+                                ApplicationData.primaryServer = primaryIsServer
+                                ApplicationData.updateSavedData()
+                            })
                                             
                         Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
                         
@@ -263,7 +296,8 @@ struct ContentView: View {
                         LabeledContent {
                             TextField("XXX.XX.X.XXX:XXXX", text: $secondaryIP)
                                 .onSubmit {
-                                    print("Primary submitted")
+                                    ApplicationData.secondaryIP = secondaryIP
+                                    ApplicationData.updateSavedData()
                                 }
                         } label: {
                             Text("Secondary server IP: ")
@@ -272,6 +306,10 @@ struct ContentView: View {
                         Toggle(isOn: $secondaryIsServer, label: {
                             Text("Uses Raspberry PI Server")
                         }).padding(10)
+                            .onChange(of: secondaryIsServer, {
+                                ApplicationData.secondaryServer = secondaryIsServer
+                                ApplicationData.updateSavedData()
+                            })
                                             
                         Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
                         
@@ -288,6 +326,19 @@ struct ContentView: View {
                 .tabItem {
                     Label("Adjustments", systemImage: "dial.high")
                 }.tag(Page.adjustments)
+                
+                VStack {
+                    Text("Presets")
+                        .fontWeight(.bold)
+                        .font(.system(size: 32.0))
+                    
+                    Spacer()
+                    
+                    // https://developer.apple.com/tutorials/app-dev-training/persisting-data
+                }
+                .tabItem {
+                    Label("Presets", systemImage: "star")
+                }.tag(Page.presets)
             }
         }
     }

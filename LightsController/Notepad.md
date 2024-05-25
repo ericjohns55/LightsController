@@ -264,3 +264,18 @@ BIFLAG - (215, 0, 113), (156, 78, 151), (0, 53, 170)
 WARM - (255, 0, 0), (255, 0, 255), (255, 200, 0)
 
 [255, 0, 0, 255, 0, 255, 255, 200, 0]
+
+//            dataItems.append(DataItem(textField: "Aurora", urlArgs: "*FX=38*FP=4*SX=16*IX=255*CL=16711680*C2=16711935*C3=16762880*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .warm))))
+//            dataItems.append(DataItem(textField: "Blends", urlArgs: "*FX=115*FP=35*SX=73*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .fire))))
+//            dataItems.append(DataItem(textField: "Bouncing Balls", urlArgs: "*FX=91*FP=26*SX=80*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .beach))))
+//            dataItems.append(DataItem(textField: "Chase", urlArgs: "*FX=28*FP=26*SX=80*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .beach))))
+//            dataItems.append(DataItem(textField: "Colortwinkles", urlArgs: "*FX=74*FP=43*SX=17*IX=65*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .yelblu)))) 
+//            dataItems.append(DataItem(textField: "Fireworks", urlArgs: "*FX=89*FP=49*SX=0*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .sakura)))) 
+//            dataItems.append(DataItem(textField: "Lake", urlArgs: "*FX=75*FP=30*SX=66*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .drywet)))) 
+//            dataItems.append(DataItem(textField: "Plasma", urlArgs: "*FX=97*FP=41*SX=93*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .magred)))) 
+//            dataItems.append(DataItem(textField: "Pride 2015", urlArgs: "*FX=63*FP=11*SX=0*IX=190*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .rainbow)))) 
+//            dataItems.append(DataItem(textField: "Rainbow", urlArgs: "*FX=9*FP=11*SX=8*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .rainbow)))) 
+//            dataItems.append(DataItem(textField: "Ripple", urlArgs: "*FX=99*FP=61*SX=64*IX=64*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .pink_candy)))) 
+//            dataItems.append(DataItem(textField: "Saw", urlArgs: "*FX=16*FP=13*SX=80*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .sunset)))) 
+//            dataItems.append(DataItem(textField: "Shadows ", urlArgs: "*FX=112*FP=56*SX=112*IX=128*CL=0*C2=0*C3=0*T=1", gradient: gradientBuilder(colorValues: ApplicationData.getPaletteColors(palette: .retro_clown))))
+            
