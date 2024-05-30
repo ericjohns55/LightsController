@@ -8,8 +8,11 @@
 import Foundation
 import SwiftUI
 
-enum Palette_OLD {
-    case cloud, ocean, rainbow, rainbow_bands, sunset, pastel, sunset2, beach, hult, drywet, fire, magred, yelmag, yelblu, sakura, temperature, retro_clown, pink_candy, biflag, warm
+struct Preset {
+    let id = UUID()
+    var name: String
+    var gradient: [Int]
+    var urlArgs: String
 }
 
 struct Palette {
@@ -23,11 +26,36 @@ struct Effect {
     var effectID: Int
 }
 
+struct SolidColor {
+    var name: String
+    var gradient: [Int]
+}
+
+enum UserDefaultKeys: String {
+    case primaryIP = "primaryIP"
+    case primaryServer = "primaryServer"
+    case secondaryIP = "secondaryIP"
+    case secondaryServer = "secondaryServer"
+    case selectedConfig = "selectedConfig"
+    case stripConfig = "stripConfig"
+    case serverConfig = "serverConfig"
+    case lastEffect = "lastEffect"
+    case lastPalette = "lastPalette"
+    case lastBrightness = "lastBrightness"
+    case lastSpeed = "lastSpeed"
+    case lastIntensity = "lastIntensity"
+    case presets = "presets"
+}
+
+// create struct to hold last selected info
+
 class ApplicationData {
     static let toggle_lights: String = "TOGGLE_LIGHTS"
     
     static var palettes: [Palette] = []
     static var effects: [Effect] = []
+    static var solidColors: [SolidColor] = []
+    static var presets: [Preset] = []
     
     static var primaryIP: String = ""
     static var primaryServer: Bool = true
@@ -38,6 +66,15 @@ class ApplicationData {
     static var stripConfig: StripConfig = .full
     static var serverConfig: ServerConfig = .primary
     
+    static var presetsString: String = ""
+    
+    static var lastEffect: String = ""
+    static var lastPalette: String = ""
+    
+    static var lastBrightness: Float = 128
+    static var lastSpeed: Float = 128
+    static var lastIntensity: Float = 128
+    
     static func setup() {
         populateArrays()
         loadSavedData()
@@ -46,33 +83,171 @@ class ApplicationData {
     static func loadSavedData() {
         let userDefaults = UserDefaults.standard
         
-        primaryIP = userDefaults.string(forKey: "primaryIP") ?? "XXX.XX.X.XXX:XXXX"
-        primaryServer = userDefaults.bool(forKey: "primaryServer")
-        secondaryIP = userDefaults.string(forKey: "secondaryIP") ?? "XXX.XX.X.XXX:XXXX"
-        secondaryServer = userDefaults.bool(forKey: "secondaryServer")
+        primaryIP = userDefaults.string(forKey: UserDefaultKeys.primaryIP.rawValue) ?? "XXX.XX.X.XXX:XXXX"
+        primaryServer = userDefaults.bool(forKey: UserDefaultKeys.primaryServer.rawValue)
+        secondaryIP = userDefaults.string(forKey: UserDefaultKeys.secondaryIP.rawValue) ?? "XXX.XX.X.XXX:XXXX"
+        secondaryServer = userDefaults.bool(forKey: UserDefaultKeys.secondaryServer.rawValue)
         
-        selectedConfig = AvailableStrip.convert(identifier: userDefaults.integer(forKey: "selectedConfig"))
-        stripConfig = StripConfig.convert(identifier: userDefaults.integer(forKey: "stripConfig"))
-        serverConfig = ServerConfig.convert(identifier: userDefaults.integer(forKey: "serverConfig"))
+        selectedConfig = AvailableStrip.convert(identifier: userDefaults.integer(forKey: UserDefaultKeys.selectedConfig.rawValue))
+        stripConfig = StripConfig.convert(identifier: userDefaults.integer(forKey: UserDefaultKeys.stripConfig.rawValue))
+        serverConfig = ServerConfig.convert(identifier: userDefaults.integer(forKey: UserDefaultKeys.serverConfig.rawValue))
+        
+        lastEffect = userDefaults.string(forKey: UserDefaultKeys.lastEffect.rawValue) ?? "(None)"
+        lastPalette = userDefaults.string(forKey: UserDefaultKeys.lastPalette.rawValue) ?? "(None)"
+        
+        presetsString = userDefaults.string(forKey: UserDefaultKeys.presets.rawValue) ?? ""
+        
+        lastBrightness = userDefaults.float(forKey: UserDefaultKeys.lastBrightness.rawValue)
+        lastSpeed = userDefaults.float(forKey: UserDefaultKeys.lastSpeed.rawValue)
+        lastIntensity = userDefaults.float(forKey: UserDefaultKeys.lastIntensity.rawValue)
         
         print("Loaded data: \(primaryIP) - \(String(primaryServer)); \(secondaryIP) - \(String(secondaryServer))")
         print("selectedConfig: \(selectedConfig); stripConfig: \(stripConfig); serverConfig - \(serverConfig)")
+        print("lastEffect: \(lastEffect); lastPalette: \(lastPalette)")
+        print("lastBrightness: \(String(lastBrightness)); lastSpeed: \(String(lastSpeed)); lastIntensity = \(String(lastIntensity))")
+        
+        for individualPreset in presetsString.split(separator: "+") {
+            if let preset = ApplicationData.parsePresetString(presetString: String(individualPreset)) {
+                presets.append(preset)
+            }
+        }
+        
+        print("Loaded \(presets.count) presets")
     }
     
     static func updateSavedData() {
-        UserDefaults.standard.setValue(primaryIP, forKey: "primaryIP")
-        UserDefaults.standard.setValue(primaryServer, forKey: "primaryServer")
-        UserDefaults.standard.setValue(secondaryIP, forKey: "secondaryIP")
-        UserDefaults.standard.setValue(secondaryServer, forKey: "secondaryServer")
+        UserDefaults.standard.setValue(primaryIP, forKey: UserDefaultKeys.primaryIP.rawValue)
+        UserDefaults.standard.setValue(primaryServer, forKey: UserDefaultKeys.primaryServer.rawValue)
+        UserDefaults.standard.setValue(secondaryIP, forKey: UserDefaultKeys.secondaryIP.rawValue)
+        UserDefaults.standard.setValue(secondaryServer, forKey: UserDefaultKeys.secondaryServer.rawValue)
         
-        UserDefaults.standard.setValue(selectedConfig.rawValue, forKey: "selectedConfig")
-        UserDefaults.standard.setValue(stripConfig.rawValue, forKey: "stripConfig")
-        UserDefaults.standard.setValue(serverConfig.rawValue, forKey: "serverConfig")
+        UserDefaults.standard.setValue(selectedConfig.rawValue, forKey: UserDefaultKeys.selectedConfig.rawValue)
+        UserDefaults.standard.setValue(stripConfig.rawValue, forKey: UserDefaultKeys.stripConfig.rawValue)
+        UserDefaults.standard.setValue(serverConfig.rawValue, forKey: UserDefaultKeys.serverConfig.rawValue)
+        
+        UserDefaults.standard.setValue(lastEffect, forKey: UserDefaultKeys.lastEffect.rawValue)
+        UserDefaults.standard.setValue(lastPalette, forKey: UserDefaultKeys.lastPalette.rawValue)
+        
+        UserDefaults.standard.setValue(presetsString, forKey: UserDefaultKeys.presets.rawValue)
+        
+        UserDefaults.standard.setValue(lastBrightness, forKey: UserDefaultKeys.lastBrightness.rawValue)
+        UserDefaults.standard.setValue(lastSpeed, forKey: UserDefaultKeys.lastSpeed.rawValue)
+        UserDefaults.standard.setValue(lastIntensity, forKey: UserDefaultKeys.lastIntensity.rawValue)
+    }
+    
+    static func savePresets(presets: [Preset]) {
+        if (presets.count == 0) {
+            UserDefaults.standard.setValue("", forKey: UserDefaultKeys.presets.rawValue)
+            return
+        }
+        
+        var fullString: String = ""
+        
+        for preset in presets {
+            fullString.append("\(generatePresetString(preset: preset))+")
+        }
+        
+        fullString.removeLast()
+        
+        UserDefaults.standard.setValue(fullString, forKey: UserDefaultKeys.presets.rawValue)
+    }
+    
+    static func generateCurrentPreset() -> Preset {
+        var urlArgs: String = ""
+        var gradient: [Int]
+        
+        if (lastEffect == "Solid Color") {
+            let colorName = lastPalette.replacingOccurrences(of: " (Solid Color)", with: "")
+            gradient = getColorByName(colorName: colorName)
+            
+            urlArgs = "*FX=0*R=\(gradient[0])*G=\(gradient[1])*B=\(gradient[2])*A=\(lastBrightness)*T=1"
+        } else {
+            let effectID = getEffectIdByName(effectName: lastEffect)
+            let palette = getPaletteByName(paletteName: lastPalette)
+            gradient = palette.gradient
+            
+            urlArgs = "*FX=\(effectID)*FP=\(palette.paletteID)*SX=\(lastSpeed)*IX=\(lastIntensity)*A=\(lastBrightness)*CL=0*C2=0*C3=0*T=1"
+        }
+        
+        return Preset(name: lastEffect, gradient: gradient, urlArgs: urlArgs)
+    }
+    
+    static func getPaletteByName(paletteName: String) -> Palette {
+        for palette in palettes {
+            if (palette.name == paletteName) {
+                return palette
+            }
+        }
+        
+        return Palette(name: "(error)", paletteID: -1, gradient: [0, 0, 0])
+    }
+    
+    static func getEffectIdByName(effectName: String) -> Int {
+        for effect in effects {
+            if (effect.name == effectName) {
+                return effect.effectID
+            }
+        }
+        
+        return -1
+    }
+    
+    static func getColorByName(colorName: String) -> [Int] {
+        for solidColor in solidColors {
+            if (solidColor.name == colorName) {
+                return solidColor.gradient
+            }
+        }
+        
+        return [0, 0, 0]
+    }
+    
+    static func generatePresetString(preset: Preset) -> String {
+        var gradient: String = ""
+        
+        for value in preset.gradient {
+            gradient.append("\(String(value)),")
+        }
+        
+        gradient.removeLast()
+        
+        return "\(preset.name)|\(preset.urlArgs)|\(gradient)"
+    }
+    
+    static func parsePresetString(presetString: String) -> Preset? {
+        let split = presetString.split(separator: "|")
+        
+        if (split.count != 3) {
+            return nil
+        }
+        
+        let presetName = String(split[0])
+        let urlArgs = String(split[1])
+        var colors: [Int] = []
+        
+        for colorValue in split[2].split(separator: ",") {
+            colors.append(Int(colorValue) ?? 0)
+        }
+        
+        return Preset(name: presetName, gradient: colors, urlArgs: urlArgs)
     }
     
     static func populateArrays() {
+        solidColors.removeAll()
         palettes.removeAll()
         effects.removeAll()
+        
+        print("Generating colors...")
+        solidColors.append(SolidColor(name: "Toggle Lights", gradient: [255, 0, 0, 255, 0, 0, 0, 255, 0, 0, 255, 0]))
+        solidColors.append(SolidColor(name: "Red", gradient: [255, 0, 0]))
+        solidColors.append(SolidColor(name: "Orange", gradient: [255, 100, 0]))
+        solidColors.append(SolidColor(name: "Yellow", gradient: [255, 200, 0]))
+        solidColors.append(SolidColor(name: "Green", gradient: [8, 255, 0]))
+        solidColors.append(SolidColor(name: "Cyan", gradient: [0, 255, 255]))
+        solidColors.append(SolidColor(name: "Blue", gradient: [0, 0, 255]))
+        solidColors.append(SolidColor(name: "Pink", gradient: [255, 0, 255]))
+        solidColors.append(SolidColor(name: "Natural Light", gradient: [255, 197, 147]))
+        solidColors.append(SolidColor(name: "White", gradient: [255, 255, 255]))
         
         print("Generating palettes...")
         
@@ -268,50 +443,5 @@ class ApplicationData {
         }
         
         return DataItemRow.gradientBuilder(colorValues: [255, 255, 255])
-    }
-    
-    static func getPaletteColors(palette: Palette_OLD) -> [Int] {
-        switch (palette) {
-            case .cloud:
-                return [0, 0, 255, 0, 0, 139, 0, 0, 139, 0, 0, 139, 0, 0, 139, 0, 0, 139, 0, 0, 139, 0, 0, 139, 0, 0, 255, 0, 0, 139, 135, 206, 235, 135, 206, 235, 173, 216, 230, 255, 255, 255, 173, 216, 230, 135, 206, 235]
-            case .ocean:
-                return [25, 25, 112, 0, 0, 139, 25, 25, 112, 0, 0, 128, 0, 0, 139, 0, 0, 205, 46, 139, 87, 0, 128, 128, 95, 158, 160, 0, 0, 255, 0, 139, 139, 100, 149, 237, 127, 255, 212, 46, 139, 87, 0, 255, 255, 135, 206, 250]
-            case .rainbow:
-                return [255, 0, 0, 213, 42, 0, 171, 85, 0, 171, 127, 0, 171, 171, 0, 86, 213, 0, 0, 255, 0, 0, 213, 42, 0, 171, 85, 0, 87, 170, 0, 0, 255, 42, 0, 213, 85, 0, 171, 127, 0, 129, 171, 0, 85, 213, 0, 43]
-            case .rainbow_bands:
-                return [255, 0, 0, 0, 0, 0, 171, 85, 0, 0, 0, 0, 171, 171, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 171, 85, 0, 0, 0, 0, 0, 255, 0, 0, 0, 85, 0, 171, 0, 0, 0, 171, 0, 85, 0, 0, 0]
-            case .sunset:
-                return [120, 0, 0, 179, 22, 0, 255, 104, 0, 167, 22, 18, 100, 0, 103, 16, 0, 130, 0, 0, 160]
-            case .pastel:
-                return [10, 62, 123, 56, 130, 103, 153, 225, 85, 199, 217, 68, 255, 207, 54, 247, 152, 57, 239, 107, 61, 247, 152, 57, 255, 207, 54, 255, 227, 48, 255, 248, 42]
-            case .sunset2:
-                return [110, 49, 11, 55, 34, 10, 22, 22, 9, 239, 124, 8, 220, 156, 27, 203, 193, 61, 33, 53, 56, 0, 1, 52]
-            case .beach:
-                return [1, 5, 0, 32, 23, 1, 161, 55, 1, 229, 144, 1, 39, 142, 74, 1, 4, 1]
-            case .hult:
-                return [247, 176, 247, 255, 136, 255, 220, 29, 226, 7, 82, 178, 1, 124, 109, 1, 124, 109]
-            case .drywet:
-                return [47, 30, 2, 213, 147, 24, 103, 219, 52, 3, 219, 207, 1, 48, 214, 1, 1, 111, 1, 7, 33]
-            case .fire:
-                return [0, 0, 0, 18, 0, 0, 113, 0, 0, 142, 3, 1, 175, 17, 1, 213, 44, 2, 255, 82, 4, 255, 115, 4, 255, 156, 4, 255, 203, 4, 255, 255, 4, 255, 255, 71, 255, 255, 255]
-            case .magred:
-                return [0, 0, 0, 42, 0, 45, 255, 0, 255, 255, 0, 45, 255, 0, 0]
-            case .yelmag:
-                return [0, 0, 0, 42, 0, 0, 255, 0, 0, 255, 0, 45, 255, 0, 255, 255, 55, 45, 255, 255, 0]
-            case .yelblu:
-                return [0, 0, 255, 0, 55, 255, 0, 255, 255, 42, 255, 45, 255, 255, 0]
-            case .sakura:
-                return [196, 19, 10, 255, 69, 45, 223, 45, 72, 255, 82, 103, 223, 13, 17]
-            case .temperature:
-                return [1, 27, 105, 1, 40, 127, 1, 70, 168, 1, 92, 197, 1, 119, 221, 3, 130, 151, 23, 156, 149, 67, 182, 112, 121, 201, 52, 142, 203, 11, 224, 223, 1, 252, 187, 2, 247, 147, 1, 237, 87, 1, 229, 43, 1, 171, 2, 2, 80, 3, 3, 80, 3, 3]
-            case .retro_clown:
-                return [227, 101, 3, 194, 18, 19, 92, 8, 192]
-            case .pink_candy:
-                return [255, 255, 255, 7, 12, 255, 227, 1, 127, 227, 1, 127, 255, 255, 255, 227, 1, 127, 45, 1, 99, 255, 255, 255];
-            case .biflag:
-                return [215, 0, 113, 156, 78, 151, 0, 53, 170]
-            case .warm:
-                return [255, 0, 0, 255, 0, 255, 255, 200, 0]
-        }
     }
 }

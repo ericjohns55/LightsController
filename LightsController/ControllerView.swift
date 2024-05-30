@@ -11,16 +11,16 @@ enum Page {
     case colors, effects, palettes, adjustments, presets
 }
 
-struct ContentView: View {
+struct ControllerView: View {
     @State private var selectedTab: Page = .colors
     @State private var inSetup: Bool = false
     
-    @State private var lastPalette: String = "(None)"
-    @State private var lastEffect: String = "(None)"
+    @State private var lastPalette: String
+    @State private var lastEffect: String
     
-    @State public var brightness: Float = 128
-    @State public var effectSpeed: Float = 128
-    @State public var effectIntensity: Float = 128
+    @State public var brightness: Float
+    @State public var effectSpeed: Float
+    @State public var effectIntensity: Float
     
     @State private var selectedConfig: AvailableStrip
     @State private var stripConfig: StripConfig
@@ -31,6 +31,8 @@ struct ContentView: View {
     @State private var secondaryIP: String
     @State private var secondaryIsServer: Bool
     
+    @State private var presets: [Preset]
+    
     init() {
         primaryIP = ApplicationData.primaryIP
         primaryIsServer = ApplicationData.primaryServer
@@ -40,6 +42,15 @@ struct ContentView: View {
         selectedConfig = ApplicationData.selectedConfig
         stripConfig = ApplicationData.stripConfig
         serverConfig = ApplicationData.serverConfig
+        
+        lastEffect = ApplicationData.lastEffect
+        lastPalette = ApplicationData.lastPalette
+        
+        brightness = ApplicationData.lastBrightness
+        effectSpeed = ApplicationData.lastSpeed
+        effectIntensity = ApplicationData.lastIntensity
+        
+        presets = ApplicationData.presets
     }
         
     var body: some View {
@@ -70,6 +81,10 @@ struct ContentView: View {
                             if (dataRow.textField != "Toggle Lights") {
                                 lastEffect = "Solid Color"
                                 lastPalette = "\(dataRow.textField) (Solid Color)"
+                                
+                                ApplicationData.lastEffect = lastEffect
+                                ApplicationData.lastPalette = lastPalette
+                                ApplicationData.updateSavedData()
                             }
                             
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
@@ -80,9 +95,6 @@ struct ContentView: View {
                         .buttonStyle(PlainButtonStyle())
                         .cornerRadius(10.0)
                         .listRowSeparator(.hidden)
-                        .gesture(LongPressGesture().onEnded({ _ in
-                            print("YOUR MOM")
-                        }))
                         
                         if !dataRow.last {
                             Color(uiColor: UIColor.separator).frame(height: 1.0 / UIScreen.main.scale)
@@ -112,6 +124,11 @@ struct ContentView: View {
                             let response = LightsControllerApp.extractModifiers(urlArgs: dataRow.urlArgs)
                             effectSpeed = response[0]
                             effectIntensity = response[1]
+                            
+                            ApplicationData.lastSpeed = effectSpeed
+                            ApplicationData.lastIntensity = effectIntensity
+                            ApplicationData.lastEffect = lastEffect
+                            ApplicationData.updateSavedData()
                         }) {
                             DataItemRow(dataItem: dataRow)
                                 .contentShape(Rectangle())
@@ -142,6 +159,8 @@ struct ContentView: View {
                         Button(action: {
                             lastPalette = dataRow.textField
                             LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
+                            ApplicationData.lastPalette = lastPalette
+                            ApplicationData.updateSavedData()
                         }) {
                             DataItemRow(dataItem: dataRow)
                                 .contentShape(Rectangle())
@@ -174,6 +193,8 @@ struct ContentView: View {
                         } onEditingChanged: { editing in
                             if (!editing) {
                                 LightsControllerApp.requestController(urlArgs: "*A=\(Int(brightness))")
+                                ApplicationData.lastBrightness = brightness
+                                ApplicationData.updateSavedData()
                             }
                         }.padding(10)
                         Text("Brightness: \(Int(brightness))")
@@ -187,6 +208,8 @@ struct ContentView: View {
                         } onEditingChanged: { editing in
                             if (!editing) {
                                 LightsControllerApp.requestController(urlArgs: "*SX=\(Int(effectSpeed))")
+                                ApplicationData.lastSpeed = effectSpeed
+                                ApplicationData.updateSavedData()
                             }
                         }.padding(10)
                         Text("Effect Speed: \(Int(effectSpeed))")
@@ -200,6 +223,8 @@ struct ContentView: View {
                         } onEditingChanged: { editing in
                             if (!editing) {
                                 LightsControllerApp.requestController(urlArgs: "*IX=\(Int(effectIntensity))")
+                                ApplicationData.lastIntensity = effectIntensity
+                                ApplicationData.updateSavedData()
                             }
                         }.padding(10)
                         Text("Effect Intensity: \(Int(effectIntensity))")
@@ -335,6 +360,51 @@ struct ContentView: View {
                     Spacer()
                     
                     // https://developer.apple.com/tutorials/app-dev-training/persisting-data
+                    
+                    if (!presets.isEmpty) {
+                        HStack {
+                            List {
+                                ForEach(presets, id: \.id) { dataRow in
+                                    Button(action: {
+                                        LightsControllerApp.requestController(urlArgs: dataRow.urlArgs)
+                                        
+                                        let response = LightsControllerApp.extractModifiers(urlArgs: dataRow.urlArgs)
+                                        effectSpeed = response[0]
+                                        effectIntensity = response[1]
+                                        brightness = response[2]
+                                    }) {
+                                        DataItemRow(dataItem: DataItem(textField: dataRow.name, urlArgs: dataRow.urlArgs, gradient: DataItemRow.gradientBuilder(colorValues: dataRow.gradient)))
+                                            .contentShape(Rectangle())
+                                    }
+                                    .buttonStyle(PlainButtonStyle())
+                                    .cornerRadius(10.0)
+                                    .listRowSeparator(.hidden)
+                                    .padding(.vertical, 10)
+                                }.onMove(perform: { indices, newOffset in
+                                    presets.move(fromOffsets: indices, toOffset: newOffset)
+                                    ApplicationData.savePresets(presets: presets)
+                                }).onDelete(perform: { indexSet in
+                                    presets.remove(atOffsets: indexSet)
+                                    ApplicationData.savePresets(presets: presets)
+                                })
+                            }
+                        }
+                    } else {
+                        Text("No presets have been made yet.")
+                            .italic()
+                            .font(.system(size: 16.0))
+                    }
+                
+                    Spacer()
+                    
+                    Button(action: {
+                        let preset = ApplicationData.generateCurrentPreset()
+                        presets.append(preset)
+                        
+                        ApplicationData.savePresets(presets: presets)
+                    }) {
+                        Text("Save Current State as Preset")
+                    }.padding(20)
                 }
                 .tabItem {
                     Label("Presets", systemImage: "star")
@@ -345,5 +415,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    ControllerView()
 }

@@ -47,8 +47,10 @@ struct LightsControllerApp: App {
     }
     
     var body: some Scene {
+        // https://stackoverflow.com/questions/68952701/passing-variables-between-views-swiftui
+        
         WindowGroup {
-            ContentView()
+            ControllerView()
         }
     }
     
@@ -105,15 +107,23 @@ struct LightsControllerApp: App {
     static func extractModifiers(urlArgs: String) -> [Float] {
         var speed: Float = 128
         var intensity: Float = 128
+        var brightness: Float = 128
         
         for item in urlArgs.split(separator: "*") {
             if (item.starts(with: "SX=")) {
                 speed = Float(item.replacingOccurrences(of: "SX=", with: "")) ?? 128
+                ApplicationData.lastSpeed = speed
             } else if (item.starts(with: "IX=")) {
                 intensity = Float(item.replacingOccurrences(of: "IX=", with: "")) ?? 128
+                ApplicationData.lastIntensity = intensity
+            } else if (item.starts(with: "A=")) {
+                brightness = Float(item.replacingOccurrences(of: "A=", with: "")) ?? 128
+                ApplicationData.lastBrightness = brightness
             }
         }
         
-        return [speed, intensity]
+        ApplicationData.updateSavedData()
+        
+        return [speed, intensity, brightness]
     }
 }

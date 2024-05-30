@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		30B08FF52BEEA5B4001F2F98 /* ApplicationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30B08FF42BEEA5B4001F2F98 /* ApplicationData.swift */; };
 		30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */; };
-		30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33E02BE46B530064CDFB /* ContentView.swift */; };
+		30EA33E12BE46B530064CDFB /* ControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33E02BE46B530064CDFB /* ControllerView.swift */; };
 		30EA33E32BE46B540064CDFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30EA33E22BE46B540064CDFB /* Assets.xcassets */; };
 		30EA33E72BE46B540064CDFB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30EA33E62BE46B540064CDFB /* Preview Assets.xcassets */; };
 		30EA33F12BE46B540064CDFB /* LightsControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30EA33F02BE46B540064CDFB /* LightsControllerTests.swift */; };
@@ -41,7 +41,7 @@
 		30B08FF42BEEA5B4001F2F98 /* ApplicationData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationData.swift; sourceTree = "<group>"; };
 		30EA33DB2BE46B530064CDFB /* LightsController.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightsController.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightsControllerApp.swift; sourceTree = "<group>"; };
-		30EA33E02BE46B530064CDFB /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		30EA33E02BE46B530064CDFB /* ControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerView.swift; sourceTree = "<group>"; };
 		30EA33E22BE46B540064CDFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30EA33E42BE46B540064CDFB /* LightsController.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = LightsController.entitlements; sourceTree = "<group>"; };
 		30EA33E62BE46B540064CDFB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -103,7 +103,7 @@
 			children = (
 				3034202A2BEBDFB300FDC55A /* Info.plist */,
 				30B08FF42BEEA5B4001F2F98 /* ApplicationData.swift */,
-				30EA33E02BE46B530064CDFB /* ContentView.swift */,
+				30EA33E02BE46B530064CDFB /* ControllerView.swift */,
 				30EA340B2BE46C2E0064CDFB /* DataItemRow.swift */,
 				30EA33DE2BE46B530064CDFB /* LightsControllerApp.swift */,
 				3073BCF92BEDDEA100BBCFD7 /* Notepad.md */,
@@ -273,7 +273,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30B08FF52BEEA5B4001F2F98 /* ApplicationData.swift in Sources */,
-				30EA33E12BE46B530064CDFB /* ContentView.swift in Sources */,
+				30EA33E12BE46B530064CDFB /* ControllerView.swift in Sources */,
 				30EA340C2BE46C2E0064CDFB /* DataItemRow.swift in Sources */,
 				30EA33DF2BE46B530064CDFB /* LightsControllerApp.swift in Sources */,
 			);
